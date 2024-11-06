@@ -1,0 +1,38 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Pets {
+  id               String         @id @default(uuid())
+  name             String         @db.VarChar(100)
+  species          String         @db.VarChar(100)
+  dateBorn         DateTime       @db.Date
+  description      String         @db.Text
+  status           String         @db.VarChar(30)
+  adoptions AdoptionProcess[]
+  
+}
+
+model Adopter{
+  id              String @id @default(uuid())
+  name            String @db.VarChar(150)
+  email           String @db.VarChar(100)
+  phone           String @db.VarChar(100)
+  address         String @db.VarChar(150)
+  adoptions AdoptionProcess[]
+}
+
+model AdoptionProcess{
+   id           String @id @default(uuid())
+   pet_id       String 
+   adopter_id   String
+   data_adocao  DateTime @db.Date
+   pets          Pets     @relation(fields: [pet_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pet")
+   Adopter      Adopter   @relation(fields: [adopter_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_adopter")
+}
