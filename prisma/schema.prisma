@@ -1,12 +1,16 @@
+<<<<<<< HEAD
 datasource db {
   provider = "postgresql" // ou "mysql"
   url      = env("DATABASE_URL")
 }
+=======
+>>>>>>> 4c1c947105a8190fd2b87fdcbb4a6e054f8b225a
 
 generator client {
   provider = "prisma-client-js"
 }
 
+<<<<<<< HEAD
 model Pets {
   id          Int        @id @default(autoincrement())
   nome        String
@@ -35,4 +39,38 @@ model Adocao {
   // Relacionamentos
   pet          Pets       @relation(fields: [pet_id], references: [id])
   adotante     Adotantes  @relation(fields: [adotante_id], references: [id])
+=======
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Pets {
+  id               String         @id @default(uuid())
+  name             String         @db.VarChar(100)
+  species          String         @db.VarChar(100)
+  dateBorn         DateTime       @db.Date
+  description      String         @db.Text
+  status           String         @db.VarChar(30)
+  adoptions AdoptionProcess[]
+  
+}
+
+model Adopter{
+  id              String @id @default(uuid())
+  name            String @db.VarChar(150)
+  email           String @db.VarChar(100)
+  phone           String @db.VarChar(100)
+  address         String @db.VarChar(150)
+  adoptions AdoptionProcess[]
+}
+
+model AdoptionProcess{
+  id           String @id @default(uuid())
+  pet_id       String 
+  adopter_id   String
+  data_adocao  DateTime @default(now())
+  pets          Pets     @relation(fields: [pet_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pet")
+  Adopter      Adopter   @relation(fields: [adopter_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_adopter")
+>>>>>>> 4c1c947105a8190fd2b87fdcbb4a6e054f8b225a
 }
