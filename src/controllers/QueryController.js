@@ -9,7 +9,7 @@ export class QueryController{
         const { species, age, status } = req.query;
       
         try {
-          const pets = await prisma.pet.findMany({
+          const pets = await prismaClient.pets.findMany({
             where: {
               species: species || undefined,
               age: age ? parseInt(age) : undefined,

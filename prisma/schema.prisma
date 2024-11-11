@@ -52,6 +52,7 @@ model Pets {
   dateBorn         DateTime       @db.Date
   description      String         @db.Text
   status           String         @db.VarChar(30)
+  age               Int            @default(0)
   adoptions AdoptionProcess[]
   
 }
