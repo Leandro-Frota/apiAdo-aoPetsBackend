@@ -1,45 +1,3 @@
-<<<<<<< HEAD
-datasource db {
-  provider = "postgresql" // ou "mysql"
-  url      = env("DATABASE_URL")
-}
-=======
->>>>>>> 4c1c947105a8190fd2b87fdcbb4a6e054f8b225a
-
-generator client {
-  provider = "prisma-client-js"
-}
-
-<<<<<<< HEAD
-model Pets {
-  id          Int        @id @default(autoincrement())
-  nome        String
-  especie     String
-  idade       Int
-  descricao   String
-  status      String
-  adocoes     Adocao[]   // Relação com adoções
-}
-
-model Adotantes {
-  id          Int        @id @default(autoincrement())
-  nome        String
-  email       String     @unique
-  telefone    String
-  endereco    String
-  adocoes     Adocao[]   // Relação com adoções
-}
-
-model Adocao {
-  id           Int        @id @default(autoincrement())
-  pet_id       Int
-  adotante_id  Int
-  data_adocao  DateTime   @default(now())
-
-  // Relacionamentos
-  pet          Pets       @relation(fields: [pet_id], references: [id])
-  adotante     Adotantes  @relation(fields: [adotante_id], references: [id])
-=======
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -73,5 +31,5 @@ model AdoptionProcess{
   data_adocao  DateTime @default(now())
   pets          Pets     @relation(fields: [pet_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pet")
   Adopter      Adopter   @relation(fields: [adopter_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_adopter")
->>>>>>> 4c1c947105a8190fd2b87fdcbb4a6e054f8b225a
+
 }
