@@ -1,0 +1,38 @@
+datasource db {
+  provider = "postgresql" // ou "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Pets {
+  id          Int        @id @default(autoincrement())
+  nome        String
+  especie     String
+  idade       Int
+  descricao   String
+  status      String
+  adocoes     Adocao[]   // Relação com adoções
+}
+
+model Adotantes {
+  id          Int        @id @default(autoincrement())
+  nome        String
+  email       String     @unique
+  telefone    String
+  endereco    String
+  adocoes     Adocao[]   // Relação com adoções
+}
+
+model Adocao {
+  id           Int        @id @default(autoincrement())
+  pet_id       Int
+  adotante_id  Int
+  data_adocao  DateTime   @default(now())
+
+  // Relacionamentos
+  pet          Pets       @relation(fields: [pet_id], references: [id])
+  adotante     Adotantes  @relation(fields: [adotante_id], references: [id])
+}
