@@ -1,11 +1,12 @@
 import { Router} from "express";
-import { QueryController, QueryController } from "../controllers/QueryController";
+import { QueryController } from "../controllers/QueryController.js";
 
 
-const QueryRouter = Router()
-const QueryController = new QueryController()
+const queryRouter = Router()
+const queryController = new QueryController()
 
 
-QueryRouter.get('/pets', QueryController.getPets);
+queryRouter.get('/', queryController.getPets);
 
 
+export {queryRouter}

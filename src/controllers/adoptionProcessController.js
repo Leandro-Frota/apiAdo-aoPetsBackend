@@ -33,7 +33,6 @@ async registerAdoptionProcess(req,res){
           const getProcessAdopt = await prismaClient.adoptionProcess.findUnique({
                where: {id}
           })
-
           if(!getProcessAdopt){
                return res.status(404).send("Procces not found")
           }
@@ -55,7 +54,6 @@ async registerAdoptionProcess(req,res){
           const getProcessAdopt = await prismaClient.adoptionProcess.findUnique({
                where: {id}
           })
-
           if(!getProcessAdopt){
                return res.status(404).send("Adoption process not found")
           }
@@ -76,15 +74,18 @@ async registerAdoptionProcess(req,res){
           const getProcessAdopt = await prismaClient.adoptionProcess.findUnique({
                where:{id}
           })
-
           if(!getProcessAdopt){
                return res.status(404).send("Adoption process not found")
-
           }
 
           try{
                await prismaClient.adoptionProcess.delete({
                     where:{id}
+               })
+               const newStatus = "disponivel"
+               await prismaClient.pets.update({
+                    data:{status:newStatus},
+                    where:{id:pet_id}
                })
                return res.status(200).send("Adoption deleted")
           }catch(error){

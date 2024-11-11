@@ -4,16 +4,22 @@ export class PetController {
   
   
   async registerPet(req, res) {
-    const { nome, idade, tipo, raça, status } = req.body;
+    const { name, species, dateBorn, description, status } = req.body;
+
+    const dateNow = new Date()
+    const born = new Date(dateBorn)
+
+    const ageNow = Math.floor((dateNow - born) / (1000 * 60 * 60 * 24 * 30.44));
 
     try {
       const newPet = await prismaClient.pets.create({
         data: {
-          nome,
-          idade,
-          tipo,
-          raça,
+          name,
+          species,
+          dateBorn,
+          description,
           status,
+          age:ageNow
         },
       });
 
@@ -55,16 +61,16 @@ export class PetController {
   
   async updatePet(req, res) {
     const { id } = req.params;
-    const { nome, idade, tipo, raça, status } = req.body;
+    const { name, species, dateBorn, description, status } = req.body;
 
     try {
       const updatedPet = await prismaClient.pets.update({
         where: { id },
         data: {
-          nome,
-          idade,
-          tipo,
-          raça,
+          name,
+          species,
+          dateBorn,
+          description,
           status,
         },
       });
