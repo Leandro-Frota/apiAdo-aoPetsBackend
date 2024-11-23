@@ -18,7 +18,7 @@ model Pets {
 model Adopter{
   id              String @id @default(uuid())
   name            String @db.VarChar(150)
-  email           String @db.VarChar(100)
+  email           String @unique@db.VarChar(100)
   phone           String @db.VarChar(100)
   address         String @db.VarChar(150)
   adoptions AdoptionProcess[]
