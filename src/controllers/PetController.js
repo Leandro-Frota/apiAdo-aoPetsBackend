@@ -63,11 +63,15 @@ export class PetController {
     const { id } = req.params;
     const { name, species, dateBorn, description, status } = req.body;
 
-    const dateNow = new Date()
-    const born = new Date(dateBorn)
-
-    const ageNow = Math.floor((dateNow - born) / (1000 * 60 * 60 * 24 * 30.44));
-
+    const data = {}
+    if(dateBorn){
+      const dateNow = new Date()
+      const born = new Date(dateBorn)
+  
+      const ageNow = Math.floor((dateNow - born) / (1000 * 60 * 60 * 24 * 30.44));
+      data.age = ageNow
+      
+    }    
 
     try {
       const updatedPet = await prismaClient.pets.update({
@@ -78,7 +82,7 @@ export class PetController {
           dateBorn,
           description,
           status,
-          age:ageNow
+          age:data.age
         },
       });
 

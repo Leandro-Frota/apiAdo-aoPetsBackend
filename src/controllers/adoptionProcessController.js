@@ -82,11 +82,7 @@ async registerAdoptionProcess(req,res){
                await prismaClient.adoptionProcess.delete({
                     where:{id}
                })
-               const newStatus = "disponivel"
-               await prismaClient.pets.update({
-                    data:{status:newStatus},
-                    where:{id:pet_id}
-               })
+
                return res.status(200).send("Adoption deleted")
           }catch(error){
                return res.status(500).json({error: error.message})
