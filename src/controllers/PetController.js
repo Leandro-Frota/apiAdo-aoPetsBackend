@@ -5,6 +5,7 @@ export class PetController {
   
   async registerPet(req, res) {
     const { name, species, dateBorn, description, status } = req.body;
+    console.log(name, species, dateBorn, description, status)
 
     const dateNow = new Date()
     const born = new Date(dateBorn)
@@ -16,7 +17,7 @@ export class PetController {
         data: {
           name,
           species,
-          dateBorn,
+          dateBorn: born,
           description,
           status,
           age:ageNow
@@ -25,6 +26,7 @@ export class PetController {
 
       return res.status(201).json(newPet);
     } catch (error) {
+      console.error(error)
       return res.status(500).json({ error: error.message });
     }
   }
